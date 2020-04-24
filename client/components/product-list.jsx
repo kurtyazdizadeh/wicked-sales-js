@@ -32,10 +32,12 @@ class ProductList extends React.Component {
       return (
         <ProductListItem
           key={productId}
+          productId={productId}
           name={name}
           image={image}
           price={(price / 100).toFixed(2)}
           desc={shortDescription}
+          setView={this.props.setView}
         />
       );
     });

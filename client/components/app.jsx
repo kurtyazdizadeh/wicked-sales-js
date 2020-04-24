@@ -1,14 +1,20 @@
 import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
+import ProductDetails from './product-details';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: null,
-      isLoading: true
+      isLoading: true,
+      view: {
+        name: 'catalog',
+        params: {}
+      }
     };
+    this.setView = this.setView.bind(this);
   }
 
   componentDidMount() {
@@ -19,16 +25,38 @@ export default class App extends React.Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
+  setView(name, params) {
+    this.setState({
+      view: {
+        name: name,
+        params: params
+      }
+    });
+  }
+
+  renderView() {
+    if (this.state.view.name === 'catalog') {
+      return <ProductList setView={this.setView} />;
+    } else {
+      return (
+        <ProductDetails
+          productId={this.state.view.params.productId}
+          setView={this.setView}
+        />
+      );
+    }
+  }
+
   render() {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
       : (
-        <div className="bg-light">
+        <div className="bg-light vh-100">
           <Header />
           <div className="mt-4 pt-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">
-                <ProductList />
+                {this.renderView()}
               </div>
             </div>
           </div>
