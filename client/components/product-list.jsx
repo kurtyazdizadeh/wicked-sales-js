@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductListItem from './product-list-item';
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -6,6 +7,7 @@ class ProductList extends React.Component {
     this.state = {
       products: []
     };
+    // this.renderListItems = this.renderListItems.bind(this);
   }
 
   componentDidMount() {
@@ -25,9 +27,27 @@ class ProductList extends React.Component {
       });
   }
 
+  renderListItems() {
+    const listItemElements = this.state.products.map(product => {
+      const { productId, name, image, price, shortDescription } = product;
+      return (
+        <ProductListItem
+          key={productId}
+          name={name}
+          image={image}
+          price={(price / 100).toFixed(2)}
+          desc={shortDescription}
+        />
+      );
+    });
+    return listItemElements;
+  }
+
   render() {
     return (
-      <div>test</div>
+      this.state.products.length
+        ? this.renderListItems()
+        : <div>Loading...</div>
     );
   }
 }
