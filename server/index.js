@@ -29,12 +29,32 @@ app.get('/api/products', (req, res, next) => {
       const products = result.rows;
       res.json(products);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'An unexpected error occurred.'
-      });
+    .catch(err => next(err));
+});
+
+app.get('/api/products/:productId', (req, res, next) => {
+  const { productId } = req.params;
+  if (!parseInt(productId, 10)) {
+    return res.status(400).json({
+      error: '"productId" must be a positive integer'
     });
+  }
+  const sql = `
+    select *
+      from "products"
+     where "productId" = $1
+    `;
+  const params = [productId];
+  db.query(sql, params)
+    .then(result => {
+      const product = result.rows[0];
+      if (!product) {
+        next();
+      } else {
+        res.status(200).json(product);
+      }
+    })
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
