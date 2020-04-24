@@ -24,17 +24,19 @@ export default class App extends React.Component {
       ? <h1>Testing connections...</h1>
       // : <h1>{this.state.message}</h1>;
       : (
-        <div>
+        <div className="bg-light">
           <Header />
-          <div className="mt-5 pt-4">
-            <div className="products container">
-              <ProductListItem />
-              <ProductListItem />
-              <ProductListItem />
-              <ProductListItem />
-              <ProductListItem />
-              <ProductListItem />
-              <ProductListItem />
+          <div className="mt-4 pt-5">
+            <div className="products container-fluid">
+              <div className="row justify-content-center">
+                <ProductListItem />
+                <ProductListItem />
+                <ProductListItem />
+                <ProductListItem />
+                <ProductListItem />
+                <ProductListItem />
+                <ProductListItem />
+              </div>
             </div>
           </div>
         </div>

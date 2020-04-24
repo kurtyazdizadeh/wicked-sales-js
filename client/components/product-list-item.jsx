@@ -3,12 +3,12 @@ import React from 'react';
 class ProductListItem extends React.Component {
   render() {
     return (
-      <div className="card mx-auto col-3">
-        <img src="..." className="card-img-top" alt="..." />
+      <div className="card m-2 col-3">
+        <img src="../images/shake-weight.jpg" className="card-img-top mt-3 scale" alt="..." />
         <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
+          <h5 className="card-title font-weight-bold">Card title</h5>
+          <h6 className="text-secondary">$29.99</h6>
+          <p className="card-text">Dynamic Inertia technology ignites muscles in arms, shoulders, and chest.</p>
         </div>
       </div>
     );
