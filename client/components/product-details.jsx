@@ -20,35 +20,35 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { name, image, price, shortDescription, longDescription } = this.state;
-    return (
-      this.state.product
-        ? (
-          <div className="col d-flex">
-            <div className="row">
-              <h4
-                onClick={() => {
-                  this.props.setView('catalog', {});
-                }}
-              >
-                &gt; Back to Catalog
-              </h4>
+    if (this.state.product) {
+      const { name, image, price, shortDescription, longDescription } = this.state.product;
+      return (
+        <div className="col-10 d-flex">
+          <div className="row">
+            <h4
+              onClick={() => {
+                this.props.setView('catalog', {});
+              }}
+            >
+                &lt; Back to Catalog
+            </h4>
+          </div>
+          <div className="row">
+            <img src={image} alt={name} className="col-6 h-50 scale" />
+            <div className="product-info d-flex flex-column col-6">
+              <h2 className="font-weight-bold">{name}</h2>
+              <h3 className="text-secondary">${(price / 100).toFixed(2)}</h3>
+              <p>{shortDescription}</p>
             </div>
             <div className="row">
-              <img src={image} alt={name} className="col-6"/>
-              <div className="product-info d-flex flex-column col-6">
-                <h2 className="font-weight-bold">{name}</h2>
-                <h3 className="text-secondary">${(price / 100).toFixed(2)}</h3>
-                <p>{shortDescription}</p>
-              </div>
-              <div className="row">
-                {longDescription}
-              </div>
+              {longDescription}
             </div>
           </div>
-        )
-        : <div>Loading...</div>
-    );
+        </div>
+      );
+    } else {
+      return <div>Loading...</div>;
+    }
   }
 }
 
