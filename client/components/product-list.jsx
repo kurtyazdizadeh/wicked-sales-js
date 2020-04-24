@@ -7,7 +7,6 @@ class ProductList extends React.Component {
     this.state = {
       products: []
     };
-    // this.renderListItems = this.renderListItems.bind(this);
   }
 
   componentDidMount() {
