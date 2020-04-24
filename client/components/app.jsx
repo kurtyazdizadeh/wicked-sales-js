@@ -51,7 +51,7 @@ export default class App extends React.Component {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
       : (
-        <div className="bg-light">
+        <div className="bg-light vh-100">
           <Header />
           <div className="mt-4 pt-5">
             <div className="products container-fluid">

@@ -1,3 +1,9 @@
 .scale {
   object-fit: contain;
 }
+.pointer {
+  cursor: pointer;
+}
+.limit-height {
+  max-height: 50vh;
+}
