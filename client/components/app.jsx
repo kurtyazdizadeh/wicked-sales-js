@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
+import ProductDetails from './product-details';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,19 @@ export default class App extends React.Component {
     });
   }
 
+  renderView() {
+    if (this.state.view.name === 'catalog') {
+      return <ProductList setView={this.setView} />;
+    } else {
+      return (
+        <ProductDetails
+          productId={this.state.view.params.productId}
+          setView={this.setView}
+        />
+      );
+    }
+  }
+
   render() {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
@@ -42,7 +56,7 @@ export default class App extends React.Component {
           <div className="mt-4 pt-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">
-                <ProductList setView={this.setView}/>
+                {this.renderView()}
               </div>
             </div>
           </div>
