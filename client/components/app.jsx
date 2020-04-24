@@ -7,7 +7,11 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       message: null,
-      isLoading: true
+      isLoading: true,
+      view: {
+        name: 'catalog',
+        params: {}
+      }
     };
   }
 
@@ -17,6 +21,15 @@ export default class App extends React.Component {
       .then(data => this.setState({ message: data.message || data.error }))
       .catch(err => this.setState({ message: err.message }))
       .finally(() => this.setState({ isLoading: false }));
+  }
+
+  setView(name, params) {
+    this.setState({
+      view: {
+        name: name,
+        params: params
+      }
+    });
   }
 
   render() {
