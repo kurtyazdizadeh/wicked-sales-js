@@ -82,10 +82,10 @@ app.post('/api/cart', (req, res, next) => {
   const params = [productId];
   db.query(sql, params)
     .then(result => {
-      const price = result.rows[0];
-      if (!price) {
+      if (!result.rows.length) {
         throw new ClientError('cannot find product', 400);
       }
+      const { price } = result.rows[0];
       const sql = `
         insert into "carts" ("cartId", "createdAt")
         values (default, default)
@@ -94,15 +94,48 @@ app.post('/api/cart', (req, res, next) => {
       return (
         db.query(sql)
           .then(result => {
-            const cart = result.rows[0];
-            console.log('cart', cart);
-            console.log('price', price);
-            return { cart, price };
+            const { cartId } = result.rows[0];
+            return { cartId, price };
           })
       );
     })
     .then(data => {
-      console.log('data', data);
+      const { cartId, price } = data;
+      req.session.cartId = cartId;
+      const sql = `
+        insert into "cartItems" ("cartId", "productId", "price")
+        values ($1, $2, $3)
+        returning "cartItemId"
+      `;
+      const params = [cartId, productId, price];
+      return (
+        db.query(sql, params)
+          .then(result => {
+            const { cartItemId } = result.rows[0];
+            return cartItemId;
+          })
+      );
+    })
+    .then(cartItemId => {
+      const sql = `
+        select "c"."cartItemId",
+                "c"."price",
+                "p"."productId",
+                "p"."image",
+                "p"."name",
+                "p"."shortDescription"
+           from "cartItems" as "c"
+           join "products" as "p" using ("productId")
+         where "c"."cartItemId" = $1
+      `;
+      const params = [cartItemId];
+      return (
+        db.query(sql, params)
+          .then(result => {
+            const cartItem = result.rows[0];
+            res.status(201).json(cartItem);
+          })
+      );
     })
     .catch(err => next(err));
 });
