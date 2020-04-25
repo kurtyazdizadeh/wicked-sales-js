@@ -60,6 +60,25 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  addToCart(product) {
+    const fetchConfig = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    };
+
+    fetch('/api/cart', fetchConfig)
+      .then(res => res.json())
+      .then(product => {
+        const cartCopy = [...this.state.cart];
+        cartCopy.push(product);
+        this.setState({ cart: cartCopy });
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
