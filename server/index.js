@@ -58,12 +58,26 @@ app.get('/api/products/:productId', (req, res, next) => {
 });
 
 app.get('/api/cart', (req, res, next) => {
+  if (!req.session.cartId) {
+    res.json([]);
+  }
   const sql = `
-    select *
-      from "carts"
+    select "c"."cartItemId",
+            "c"."price",
+            "p"."productId",
+            "p"."image",
+            "p"."name",
+            "p"."shortDescription"
+        from "cartItems" as "c"
+        join "products" as "p" using ("productId")
+      where "c"."cartId" = $1
     `;
-  db.query(sql)
-    .then(result => res.json(result))
+  const { cartId } = req.session;
+  const params = [cartId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows[0]);
+    })
     .catch(err => next(err));
 });
 
@@ -86,6 +100,10 @@ app.post('/api/cart', (req, res, next) => {
         throw new ClientError('cannot find product', 400);
       }
       const { price } = result.rows[0];
+      if (req.session.cartId) {
+        const { cartId } = req.session;
+        return { cartId, price };
+      }
       const sql = `
         insert into "carts" ("cartId", "createdAt")
         values (default, default)
