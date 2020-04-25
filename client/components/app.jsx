@@ -22,6 +22,9 @@ export default class App extends React.Component {
     fetch('/api/health-check')
       .then(res => res.json())
       .then(data => this.setState({ message: data.message || data.error }))
+      .then(data => {
+        this.getCartItems();
+      })
       .catch(err => this.setState({ message: err.message }))
       .finally(() => this.setState({ isLoading: false }));
   }
@@ -48,12 +51,21 @@ export default class App extends React.Component {
     }
   }
 
+  getCartItems() {
+    fetch('/api/cart')
+      .then(res => res.json())
+      .then(cart => {
+        console.log('cart', cart);
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
       : (
         <div className="bg-light vh-100">
-          <Header />
+          <Header cartItemCount={this.state.cart.length} />
           <div className="mt-4 pt-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">
