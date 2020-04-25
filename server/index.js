@@ -57,6 +57,56 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/cart', (req, res, next) => {
+  const sql = `
+    select *
+      from "carts"
+    `;
+  db.query(sql)
+    .then(result => res.json(result))
+    .catch(err => next(err));
+});
+
+app.post('/api/cart', (req, res, next) => {
+  const { productId } = req.body;
+  if (!parseInt(productId, 10)) {
+    return res.status(400).json({
+      error: '"productId" must be a positive integer'
+    });
+  }
+  const sql = `
+      select "price"
+        from "products"
+       where "productId" = $1
+    `;
+  const params = [productId];
+  db.query(sql, params)
+    .then(result => {
+      const price = result.rows[0];
+      if (!price) {
+        throw new ClientError('cannot find product', 400);
+      }
+      const sql = `
+        insert into "carts" ("cartId", "createdAt")
+        values (default, default)
+        returning "cartId"
+      `;
+      return (
+        db.query(sql)
+          .then(result => {
+            const cart = result.rows[0];
+            console.log('cart', cart);
+            console.log('price', price);
+            return { cart, price };
+          })
+      );
+    })
+    .then(data => {
+      console.log('data', data);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
