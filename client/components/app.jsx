@@ -12,15 +12,20 @@ export default class App extends React.Component {
       view: {
         name: 'catalog',
         params: {}
-      }
+      },
+      cart: []
     };
     this.setView = this.setView.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
     fetch('/api/health-check')
       .then(res => res.json())
       .then(data => this.setState({ message: data.message || data.error }))
+      .then(data => {
+        this.getCartItems();
+      })
       .catch(err => this.setState({ message: err.message }))
       .finally(() => this.setState({ isLoading: false }));
   }
@@ -42,9 +47,38 @@ export default class App extends React.Component {
         <ProductDetails
           productId={this.state.view.params.productId}
           setView={this.setView}
+          addToCart={this.addToCart}
         />
       );
     }
+  }
+
+  getCartItems() {
+    fetch('/api/cart')
+      .then(res => res.json())
+      .then(cartItems => {
+        this.setState({ cart: cartItems });
+      })
+      .catch(err => console.error(err));
+  }
+
+  addToCart(product) {
+    const fetchConfig = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    };
+
+    fetch('/api/cart', fetchConfig)
+      .then(res => res.json())
+      .then(product => {
+        const cartCopy = [...this.state.cart];
+        cartCopy.push(product);
+        this.setState({ cart: cartCopy });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -52,7 +86,7 @@ export default class App extends React.Component {
       ? <h1>Testing connections...</h1>
       : (
         <div className="bg-light vh-100">
-          <Header />
+          <Header cartItemCount={this.state.cart.length} />
           <div className="mt-4 pt-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">
