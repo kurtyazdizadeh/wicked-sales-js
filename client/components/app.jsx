@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
+import CartSummary from './cart-summary';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -86,7 +87,10 @@ export default class App extends React.Component {
       ? <h1>Testing connections...</h1>
       : (
         <div className="bg-light vh-100">
-          <Header cartItemCount={this.state.cart.length} />
+          <Header
+            cartItemCount={this.state.cart.length}
+            setView={this.setView}
+          />
           <div className="mt-4 pt-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">
