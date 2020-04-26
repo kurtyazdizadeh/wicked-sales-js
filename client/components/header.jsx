@@ -8,7 +8,7 @@ class Header extends React.Component {
         <span
           className="pointer"
           onClick={() => {
-            this.props.setView({ name: 'cart', params: {} });
+            this.props.setView('cart', {});
           }}>
           {this.props.cartItemCount} Items &nbsp;
           <i className="fas fa-shopping-cart"></i>
