@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
+import CartSummary from './cart-summary';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,12 +41,22 @@ export default class App extends React.Component {
   }
 
   renderView() {
-    if (this.state.view.name === 'catalog') {
+    const { name, params } = this.state.view;
+
+    if (name === 'catalog') {
       return <ProductList setView={this.setView} />;
+    }
+    if (name === 'cart') {
+      return (
+        <CartSummary
+          cart={this.state.cart}
+          setView={this.setView}
+        />
+      );
     } else {
       return (
         <ProductDetails
-          productId={this.state.view.params.productId}
+          productId={params.productId}
           setView={this.setView}
           addToCart={this.addToCart}
         />
@@ -85,8 +96,11 @@ export default class App extends React.Component {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
       : (
-        <div className="bg-light vh-100">
-          <Header cartItemCount={this.state.cart.length} />
+        <div className="bg-light">
+          <Header
+            cartItemCount={this.state.cart.length}
+            setView={this.setView}
+          />
           <div className="mt-4 pt-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">

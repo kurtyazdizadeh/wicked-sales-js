@@ -26,7 +26,7 @@ class ProductDetails extends React.Component {
         <div className="card col-8 d-flex flex-column m-3">
           <div className="row p-3">
             <h4
-              className="pointer"
+              className="text-secondary pointer"
               onClick={() => {
                 this.props.setView('catalog', {});
               }}
