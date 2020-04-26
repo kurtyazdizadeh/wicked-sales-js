@@ -7,3 +7,6 @@
 .limit-height {
   max-height: 50vh;
 }
+.summary-image {
+  max-width: calc(100%/3);
+}

@@ -47,7 +47,12 @@ export default class App extends React.Component {
       return <ProductList setView={this.setView} />;
     }
     if (name === 'cart') {
-      return <CartSummary cart={this.state.cart}/>;
+      return (
+        <CartSummary
+          cart={this.state.cart}
+          setView={this.setView}
+        />
+      );
     } else {
       return (
         <ProductDetails
@@ -91,7 +96,7 @@ export default class App extends React.Component {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
       : (
-        <div className="bg-light vh-100">
+        <div className="bg-light">
           <Header
             cartItemCount={this.state.cart.length}
             setView={this.setView}
