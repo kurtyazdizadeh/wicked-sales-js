@@ -122,7 +122,6 @@ export default class App extends React.Component {
     fetch('/api/orders', fetchConfig)
       .then(res => res.json())
       .then(processedOrder => {
-        console.log('processed order: ', processedOrder);
         this.setState({
           view: {
             name: 'catalog',
