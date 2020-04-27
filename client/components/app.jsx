@@ -57,7 +57,12 @@ export default class App extends React.Component {
       );
     }
     if (name === 'checkout') {
-      return <CheckoutForm placeOrder={this.placeOrder} />;
+      return (
+        <CheckoutForm
+          placeOrder={this.placeOrder}
+          setView={this.setView}
+        />
+      );
     } else {
       return (
         <ProductDetails
@@ -131,7 +136,7 @@ export default class App extends React.Component {
             cartItemCount={this.state.cart.length}
             setView={this.setView}
           />
-          <div className="mt-4 pt-5">
+          <div className="mt-4 py-5">
             <div className="products container-fluid">
               <div className="row justify-content-center">
                 {this.renderView()}

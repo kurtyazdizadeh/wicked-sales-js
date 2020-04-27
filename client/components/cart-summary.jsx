@@ -13,6 +13,7 @@ class CartSummary extends React.Component {
   }
 
   render() {
+    console.log(this.props.cart);
     return (
       <div className="m-3 container">
         <h4
@@ -25,6 +26,20 @@ class CartSummary extends React.Component {
         </h4>
         <h2>My Cart</h2>
         {this.renderSummaryItems()}
+        <div className="p-0 mx-auto col-11 d-flex justify-content-between">
+          <h3 className="text-secondary">
+            Order Total: ${(this.props.cart.reduce((a, b) => a.price + b.price) / 100).toFixed(2)}
+          </h3>
+          <button
+            className="btn btn-primary"
+            onClick={e => {
+              e.preventDefault();
+              this.props.setView('checkout', {});
+            }}
+          >
+            Checkout
+          </button>
+        </div>
       </div>
     );
   }

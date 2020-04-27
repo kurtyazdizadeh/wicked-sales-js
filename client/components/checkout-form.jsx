@@ -12,14 +12,34 @@ class CheckoutForm extends React.Component {
 
   render() {
     return (
-      <form action="">
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" />
-        <label htmlFor="creditCard">Credit Card:</label>
-        <input type="text" id="creditCard" name="creditCard" />
-        <label htmlFor="shippingAddress">Shipping Address:</label>
-        <textarea name="shippingAddress" id="shippingAddress" cols="30" rows="10"></textarea>
-      </form>
+      <div className="m-3 container">
+        <h4
+          className="text-secondary pointer"
+          onClick={() => {
+            this.props.setView('catalog', {});
+          }}
+        >
+          &lt; Back to Catalog
+        </h4>
+        <h2>My Cart</h2>
+        <form className="col">
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="creditCard">Credit Card:</label>
+            <input type="text" id="creditCard" name="creditCard" className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="shippingAddress">Shipping Address:</label>
+            <textarea name="shippingAddress" id="shippingAddress" cols="30" rows="10" className="form-control"></textarea>
+          </div>
+          <div className="form-group text-right">
+            <button className="btn btn-primary" type="submit">Place Order</button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
