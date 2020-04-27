@@ -92,6 +92,31 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  placeOrder(order) {
+    // const { name, creditCard, shippingAddress } = order;
+    const fetchConfig = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order)
+    };
+    fetch('/api/orders', fetchConfig)
+      .then(res => res.json())
+      .then(processedOrder => {
+        console.log('processed order', processedOrder);
+        this.setState({
+          view: {
+            name: 'catalog',
+            params: {}
+          },
+          cart: []
+        });
+      })
+      .catch(err => console.error(err));
+
+  }
+
   render() {
     return this.state.isLoading
       ? <h1>Testing connections...</h1>
