@@ -44,6 +44,10 @@ export default class App extends React.Component {
 
   renderView() {
     const { name, params } = this.state.view;
+    let orderTotal = 0;
+    if (this.state.cart.length) {
+      orderTotal = (this.state.cart.reduce((a, b) => a.price + b.price) / 100).toFixed(2);
+    }
 
     if (name === 'catalog') {
       return <ProductList setView={this.setView} />;
@@ -53,14 +57,17 @@ export default class App extends React.Component {
         <CartSummary
           cart={this.state.cart}
           setView={this.setView}
+          orderTotal={orderTotal}
         />
       );
     }
     if (name === 'checkout') {
+
       return (
         <CheckoutForm
           placeOrder={this.placeOrder}
           setView={this.setView}
+          orderTotal={orderTotal}
         />
       );
     } else {

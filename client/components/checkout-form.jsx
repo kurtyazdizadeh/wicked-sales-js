@@ -13,15 +13,8 @@ class CheckoutForm extends React.Component {
   render() {
     return (
       <div className="m-3 container">
-        <h4
-          className="text-secondary pointer"
-          onClick={() => {
-            this.props.setView('catalog', {});
-          }}
-        >
-          &lt; Back to Catalog
-        </h4>
         <h2>My Cart</h2>
+        <h4 className="text-secondary">Order Total: ${this.props.orderTotal}</h4>
         <form className="col">
           <div className="form-group">
             <label htmlFor="name">Name:</label>
@@ -35,7 +28,15 @@ class CheckoutForm extends React.Component {
             <label htmlFor="shippingAddress">Shipping Address:</label>
             <textarea name="shippingAddress" id="shippingAddress" cols="30" rows="10" className="form-control"></textarea>
           </div>
-          <div className="form-group text-right">
+          <div className="form-group d-flex justify-content-between">
+            <h4
+              className="text-secondary pointer"
+              onClick={() => {
+                this.props.setView('catalog', {});
+              }}
+            >
+                &lt; Continue Shopping
+            </h4>
             <button className="btn btn-primary" type="submit">Place Order</button>
           </div>
         </form>
