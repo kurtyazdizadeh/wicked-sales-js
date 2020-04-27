@@ -44,9 +44,11 @@ export default class App extends React.Component {
 
   renderView() {
     const { name, params } = this.state.view;
+    const { cart } = this.state;
     let orderTotal = 0;
-    if (this.state.cart.length) {
-      orderTotal = (this.state.cart.reduce((a, b) => a.price + b.price) / 100).toFixed(2);
+    if (cart.length) {
+      orderTotal = cart.reduce((a, b) => ({ price: a.price + b.price }), { price: 0 });
+      orderTotal = (orderTotal.price / 100).toFixed(2);
     }
 
     if (name === 'catalog') {
@@ -110,7 +112,6 @@ export default class App extends React.Component {
   }
 
   placeOrder(order) {
-    // const { name, creditCard, shippingAddress } = order;
     const fetchConfig = {
       method: 'POST',
       headers: {
@@ -121,7 +122,7 @@ export default class App extends React.Component {
     fetch('/api/orders', fetchConfig)
       .then(res => res.json())
       .then(processedOrder => {
-        console.log('processed order', processedOrder);
+        console.log('processed order: ', processedOrder);
         this.setState({
           view: {
             name: 'catalog',
