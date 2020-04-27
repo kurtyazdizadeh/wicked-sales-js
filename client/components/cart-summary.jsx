@@ -25,6 +25,20 @@ class CartSummary extends React.Component {
         </h4>
         <h2>My Cart</h2>
         {this.renderSummaryItems()}
+        <div className="p-0 mx-auto col-11 d-flex justify-content-between">
+          <h4 className="text-secondary">
+            Order Total: ${this.props.orderTotal}
+          </h4>
+          <button
+            className="btn btn-primary"
+            onClick={e => {
+              e.preventDefault();
+              this.props.setView('checkout', {});
+            }}
+          >
+            Checkout
+          </button>
+        </div>
       </div>
     );
   }
