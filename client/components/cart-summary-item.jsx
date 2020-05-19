@@ -4,7 +4,7 @@ class CartSummaryItem extends React.Component {
   render() {
     const { image, name, price, shortDescription } = this.props.item;
     return (
-      <div className="card p-3 my-3 mx-auto col-11">
+      <div className="card p-3 my-3 mx-auto">
         <div className="d-flex align-items-center">
           <img
             src={image}

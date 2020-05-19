@@ -14,7 +14,7 @@ class CartSummary extends React.Component {
 
   render() {
     return (
-      <div className="m-3 container">
+      <div className="container">
         <h4
           className="text-secondary pointer"
           onClick={() => {
@@ -26,7 +26,7 @@ class CartSummary extends React.Component {
         <h2>My Cart</h2>
         {this.renderSummaryItems()}
         <div className="p-0 mx-auto col-11 d-flex justify-content-between">
-          <h4 className="text-secondary">
+          <h4 className="text-secondary mr-1">
             Order Total: ${this.props.orderTotal}
           </h4>
           <button

@@ -6,7 +6,7 @@ class ProductListItem extends React.Component {
     const { name, image, price, desc, productId, setView } = this.props;
     return (
       <div
-        className="card m-2 col-3 pointer"
+        className="card product-item m-2 col-sm pointer"
         onClick={() => {
           setView(name, { productId: productId });
         }}

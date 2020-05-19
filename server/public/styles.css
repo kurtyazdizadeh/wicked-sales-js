@@ -17,3 +17,9 @@ html {
 .summary-image {
   max-width: calc(100%/3);
 }
+.product-item {
+  transition: transform .2s ease-in-out;
+}
+.product-item:hover {
+  transform: scale(1.025);
+}

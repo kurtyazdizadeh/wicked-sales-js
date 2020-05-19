@@ -23,7 +23,7 @@ class ProductDetails extends React.Component {
     if (this.state.product) {
       const { name, image, price, shortDescription, longDescription } = this.state.product;
       return (
-        <div className="card col-8 d-flex flex-column m-3">
+        <div className="card col col-8-lg d-flex flex-column m-3">
           <div className="row p-3">
             <h4
               className="text-secondary pointer"

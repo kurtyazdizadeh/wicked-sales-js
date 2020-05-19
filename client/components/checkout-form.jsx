@@ -71,6 +71,7 @@ class CheckoutForm extends React.Component {
               id="name"
               name="name"
               className="form-control"
+              required
               onChange={this.handleChange}/>
           </div>
           <div className="form-group">
@@ -80,6 +81,7 @@ class CheckoutForm extends React.Component {
               id="creditCard"
               name="creditCard"
               className="form-control"
+              required
               onChange={this.handleChange} />
           </div>
           <div className="form-group">
@@ -89,6 +91,7 @@ class CheckoutForm extends React.Component {
               id="shippingAddress"
               cols="30" rows="10"
               className="form-control"
+              required
               onChange={this.handleChange}>
             </textarea>
           </div>
