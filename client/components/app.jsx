@@ -144,8 +144,8 @@ export default class App extends React.Component {
             setView={this.setView}
           />
           <div className="mt-4 py-5">
-            <div className="products container-fluid">
-              <div className="row justify-content-center">
+            <div className="products">
+              <div className="row justify-content-center mx-1">
                 {this.renderView()}
               </div>
             </div>
