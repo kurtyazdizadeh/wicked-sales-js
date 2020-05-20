@@ -8,7 +8,7 @@ Try the application live at [https://wicked-sales.kurtyazdizadeh.com](https://wi
 - React.js
 - Node.js
 - Express
-- PosgreSQL
+- PostgreSQL
 - Webpack 4
 - Bootstrap 4
 - HTML5
